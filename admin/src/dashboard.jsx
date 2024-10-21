@@ -21,10 +21,16 @@ function DashBoard(){
     function RenderButton(){
       if(localStorage.getItem("controller")=="yes"){
         return <div>
+          <br></br>
            <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
            onClick={()=>{
             navigate("/announcements")
            }}>Add New Announcements</Card>
+           <br></br>
+           <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
+           onClick={()=>{
+            navigate("/addProfile")
+           }}>Add New Project</Card>
          </div>
       }
     }
@@ -55,8 +61,11 @@ function DashBoard(){
            <Paper elevation={24} style={{width:300,height:"100vh",padding:20}}>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}>DashBoard</Card>
              <br></br>
-             <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}>Profile</Card>
-             <br></br>
+             <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
+              onClick={()=>{
+                navigate("/profile")
+              }}
+             >Profile</Card>
              <RenderButton></RenderButton>
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}} onClick={async()=>{

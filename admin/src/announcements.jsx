@@ -21,11 +21,11 @@ import { getDate } from "date-fns";
          <br></br>
          <div style={{display:'flex',justifyContent:"center"}}>
          <Button variant='contained'style={{background:"grey",}} onClick={async()=>{
+          if(announcements!=null){
           const announcement={
             "announcement":announcements,
             "id":localStorage.getItem("id"),
             "time":getDate()
-
           }
           console.log(announcement)
           const response=await fetch("http://localhost:3000/announcements",{method:"POST",
@@ -38,6 +38,7 @@ import { getDate } from "date-fns";
           console.log(response)
           
           navigate("/dashboard")
+        }else{alert("Note can not be empty")}
 
          }}>Publish</Button>
         
