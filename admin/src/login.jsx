@@ -14,7 +14,7 @@ function Login(){
         password:""
     }
     
-return<div  style={{background:"#d3d3d3",height:800,}}>
+return<div  style={{background:"#d3d3d3",height:800,display:'flex',justifyContent:'center',flexWrap:"wrap"}}>
    <center style={{padding:200}}>
         <Card variant="outlined" style={{width:300,padding:50}}>
             <h1>DAN. Architects</h1> 
