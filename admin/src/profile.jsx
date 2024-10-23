@@ -1,5 +1,5 @@
 import { Card } from "@mui/material"
-import image from "/Users/muzzu/code/DAN Architects/scr/images/logo.jpg"
+
 
 
 
@@ -11,7 +11,7 @@ function Profile(){
             <div style={{display:"flex",justifyContent:"center"}}>
                 <div>
                     <h2>Profile</h2>
-                    <img src={image} alt="" style={{height:50,width:50}}/>
+                    
                 </div>
                 <Card>
                     <h4>Name:System
