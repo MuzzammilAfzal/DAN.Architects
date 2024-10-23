@@ -148,6 +148,19 @@ app.get('/announcements', authentication, function (req, res) { return __awaiter
         }
     });
 }); });
+app.get('/employeesData', authentication, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+    var documents;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, Data.find()];
+            case 1:
+                documents = _a.sent();
+                console.log(documents);
+                res.status(200).json(documents);
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.listen(port, function () {
     console.log("Server listening on port ".concat(port));
 });

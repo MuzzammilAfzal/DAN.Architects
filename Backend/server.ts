@@ -87,7 +87,11 @@ app.get('/announcements', authentication,async(req:any, res:any) => {
   res.status(200).json(documents)
 })
 
-
+app.get('/employeesData', authentication,async(req:any, res:any) => {
+  const documents= await Data.find()
+  console.log(documents)
+  res.status(200).json(documents)
+})
 
 
 
