@@ -25,7 +25,6 @@ import {Navigate, useNavigate} from 'react-router-dom'
           const announcement={
             "announcement":announcements,
             "id":localStorage.getItem("id"),
-            "time":getDate()
           }
           console.log(announcement)
           const response=await fetch("http://localhost:3000/announcements",{method:"POST",
