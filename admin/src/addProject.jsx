@@ -47,13 +47,15 @@ function AddProject(){
                         </select>
                       <div style={{gap:30}}>
                         <Button variant="outlined" style={{color:'grey',borderBlockColor:"black"}} onClick={()=>{
-                          setTeam(temp)
+                          setTeam(existingValue=>[...existingValue,temp])
                         }}>Add</Button>
                       </div>
-                     <Card elevation={24} style={{height:200,width:200,padding:10,overflow:"auto"}}>
+                     <Card elevation={24} style={{height:200,width:200,padding:10,overflow:"auto",background:"#A9A9A9"}}>
                       <h3><u>Team Members</u></h3>
                      <div>
-                       {Team}
+                       {Team.map(e=>{
+                        return <h5>{e}</h5>
+                       })}
                      </div>
                      </Card>
                </div>
