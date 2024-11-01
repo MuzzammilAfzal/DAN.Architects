@@ -10,9 +10,9 @@ function AddProject(){
       startDate:"",
       targetDate:"",
       siteLocation:"",
-      team:"",
+      team:null,
       details:"",
-      completedPercentage:""
+      completedPercentage:"0%"
     })
   
   
@@ -78,11 +78,15 @@ function AddProject(){
                         </select>
                       <div style={{gap:30}}>
                         <Button variant="contained" style={{background:"grey"}} onClick={()=>{
-                          if(Team.find((e)=>e===temp)){
-                            alert("Team Member Already Added")
+                          if(temp==""){
+                           alert("plz select Team Members")
                           }else{
-                            setTeam((existingValue)=>[...existingValue,temp])                          
-                          }                         
+                             if(Team.find((e)=>e===temp)){
+                              alert("Team Member Already Added")
+                             }else{
+                             setTeam((existingValue)=>[...existingValue,temp])                          
+                          } 
+                          }
                         }}>Add</Button>
                         <Button variant="contained" style={{background:"grey"}} onClick={()=>{
                           setTeam((e)=>{const newValue=[...e]
@@ -106,15 +110,23 @@ function AddProject(){
                            ...previousData,
                            team:Team
                            }))            
-                           }}>Upload Members </Button>
+                           }}>Upload Team Members </Button>
                      <br></br>
                      <h3>Details</h3>
-                     <textarea style={{height:300,width:500}}></textarea>
+                     <textarea style={{height:300,width:500}} onChange={(event)=>{
+                       setProject((previousData)=>({
+                        ...previousData,
+                        details:event.target.value
+                       }))
+                     }}></textarea>
                      <div>
                         <h3>Completed Percentage</h3>
-                        <select name="" id="completePercentage" onChange={()=>{
-                          const value=document.getElementById("completePercentage").value
-                          console.log(value);                         
+                        <select name="" id="completePercentage" onChange={(event)=>{
+                          
+                          setProject((previousData)=>({
+                            ...previousData,
+                            completedPercentage:event.target.value
+                           }))                         
                         }}>
                           <option value="0%">0%</option>
                           <option value="10%">10%</option>
