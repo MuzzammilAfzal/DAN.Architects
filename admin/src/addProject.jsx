@@ -46,9 +46,19 @@ function AddProject(){
                        }
                         </select>
                       <div style={{gap:30}}>
-                        <Button variant="outlined" style={{color:'grey',borderBlockColor:"black"}} onClick={()=>{
-                          setTeam(existingValue=>[...existingValue,temp])
+                        <Button variant="contained" style={{background:"grey"}} onClick={()=>{
+                          if(Team.find((e)=>e===temp)){
+                            alert("Team Member Already Added")
+                          }else{
+                            setTeam(existingValue=>[...existingValue,temp])
+                          }                         
                         }}>Add</Button>
+                        <Button variant="contained" style={{background:"grey"}} onClick={()=>{
+                          setTeam((e)=>{const newValue=[...e]
+                            newValue.pop();
+                            return(newValue)
+                          })
+                         }}>delete</Button>
                       </div>
                      <Card elevation={24} style={{height:200,width:200,padding:10,overflow:"auto",background:"#A9A9A9"}}>
                       <h3><u>Team Members</u></h3>
@@ -58,23 +68,30 @@ function AddProject(){
                        })}
                      </div>
                      </Card>
+                     <br></br>
+                     <h3>Details</h3>
+                     <textarea style={{height:300,width:500}}></textarea>
                </div>
                <div style={{height:400,width:400}}>
                 <Card elevation={24}style={{height:"auto",width:"auto"}}>
                     <h3>Upload Project Title Image</h3> <br></br>
                     <input type="file" accept="image/*" onChange={(event)=>{
                            const file = event.target.files[0];
-                           if (file) {
-                             const reader = new FileReader(); 
-                         
-                             reader.onloadend = () => {
-                               setImagePreviewUrl(reader.result);
-                             };
-                                reader.readAsDataURL(file);    
-                    }}}></input>
+                  
+                    }}></input>
+                </Card>
+                <br />
+                <Card elevation={24}style={{height:"auto",width:"auto"}}>
+                    <h3>Upload Project Photos</h3> <br></br>
+                    <input type="file" multiple accept="image/*" onChange={(event)=>{
+                           const file = event.target.files[0];                               
+                    }}></input>
                 </Card>
                </div>
-           </div> 
+           </div>
+           <div style={{display:"flex",justifyContent:"center", marginBottom:50}}>
+             <Button variant="contained" style={{background:"grey"}}>Add Project</Button> 
+           </div>
         </Card>
     </div>
 }
