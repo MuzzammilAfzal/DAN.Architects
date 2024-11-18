@@ -58,7 +58,7 @@ function DashBoard(){
     return<>
     <div style={{display:'flex'}}>
         <div>
-           <Paper elevation={24} style={{width:300,height:"100%",padding:20}}>
+           <Paper elevation={24} style={{width:300,height:"100%",padding:20,position:"fixed"}}>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}>DashBoard</Card>
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
@@ -76,7 +76,7 @@ function DashBoard(){
              }}  >LogOut</Card >
            </Paper>
         </div>
-       <div style={{height:"auto",background:"grey",paddingLeft:50,paddingRight:50}}>
+       <div style={{height:"auto",background:"grey",paddingLeft:50,paddingRight:50,marginLeft:350}}>
            <div >
              <h3 style={{textAlign:'center'}}>Announcements</h3>
              <Card elevation={24} style={{height:400,width:1000,overflowY:"auto",display:'flex',flexDirection:"column-reverse"}}>
