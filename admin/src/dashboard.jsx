@@ -68,10 +68,10 @@ function DashBoard(){
              >Profile</Card>
              <RenderButton></RenderButton>
              <br></br>
-             <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}} onClick={async()=>{
-                await localStorage.removeItem("token")
-                await localStorage.removeItem("id")
-                await localStorage.removeItem("controller")
+             <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}} onClick={()=>{
+                 localStorage.removeItem("token")
+                 localStorage.removeItem("id")
+                 localStorage.removeItem("controller")
                 navigate("/admin")
              }}  >LogOut</Card >
            </Paper>
