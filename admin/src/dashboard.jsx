@@ -12,11 +12,8 @@ import React from 'react';
 function DashBoard(){
  if(localStorage.getItem("token")){
     const navigate=useNavigate();
-    // const [User,setUser]=useState([])
     const [announcement,setannouncement]=useState([])
-     
-    
-    
+  
     function RenderButton(){
       if(localStorage.getItem("controller")=="yes"){
         return <div>
@@ -33,13 +30,8 @@ function DashBoard(){
          </div>
       }
     }
-
-  
-     
-  
-     
+    
    React.useEffect(()=>{
-        console.log("im here")
         fetch("http://localhost:3000/announcements",{method:"GET",
           headers:{
             "token":localStorage.getItem("token")
