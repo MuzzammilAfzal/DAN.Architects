@@ -31,6 +31,11 @@ app.get('/', authentication,(req:any, res:any) => {
   res.send('Hello World!njoinoirngv')
 })
 
+app.get('/profile', authentication,async(req:any, res:any) => {
+  const id=req.headers.id
+  const data = await Data.findOne({id})
+  res.status(200).json(data)
+})
 
 
 app.get('/controller', authentication,async (req:any, res:any) => {
@@ -68,11 +73,11 @@ app.post('/admin/login',async (req:any, res:any) => {
   let id=parsedInput.data.id;
   let password=parsedInput.data.password
   const data = await Data.findOne({id,password})
+  console.log(data);
   if(data){
     console.log("employee id found")
     const token=jwt.sign({id,password},secertKey,{expiresIn:"1h"})
     res.status(200).json({value:"1",token,data})
-    console.log(data)
   }else{
     console.log("incorrect id and password")
     res.status(401).json({value:"0"})
@@ -95,7 +100,6 @@ app.post('/announcements', authentication,async(req:any, res:any) => {
 
 app.get('/announcements', authentication,async(req:any, res:any) => {
   const documents= await announcementData.find()
-  console.log(documents)
   res.status(200).json(documents)
 })
 

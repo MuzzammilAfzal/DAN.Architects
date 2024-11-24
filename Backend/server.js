@@ -74,6 +74,20 @@ function authentication(req, res, next) {
 app.get('/', authentication, function (req, res) {
     res.send('Hello World!njoinoirngv');
 });
+app.get('/profile', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, data;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.headers.id;
+                return [4 /*yield*/, Data.findOne({ id: id })];
+            case 1:
+                data = _a.sent();
+                res.status(200).json(data);
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.get('/controller', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, employee;
     return __generator(this, function (_a) {
@@ -120,11 +134,11 @@ app.post('/admin/login', function (req, res) { return __awaiter(void 0, void 0, 
                 return [4 /*yield*/, Data.findOne({ id: id, password: password })];
             case 1:
                 data = _a.sent();
+                console.log(data);
                 if (data) {
                     console.log("employee id found");
                     token = jwt.sign({ id: id, password: password }, secertKey, { expiresIn: "1h" });
                     res.status(200).json({ value: "1", token: token, data: data });
-                    console.log(data);
                 }
                 else {
                     console.log("incorrect id and password");
@@ -157,7 +171,6 @@ app.get('/announcements', authentication, function (req, res) { return __awaiter
             case 0: return [4 /*yield*/, announcementData.find()];
             case 1:
                 documents = _a.sent();
-                console.log(documents);
                 res.status(200).json(documents);
                 return [2 /*return*/];
         }
