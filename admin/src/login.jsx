@@ -50,6 +50,7 @@ return<div  style={{background:"#d3d3d3",height:800,display:'flex',justifyConten
                     navigate("/dashboard")
                     localStorage.setItem("token",data.token)
                     localStorage.setItem("id",User.id)
+
                     if(data.data.controller=="yes")
                     {
                         localStorage.setItem("controller",data.data.controller)
