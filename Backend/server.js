@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,11 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
 var express = require('express');
 var mongoose = require('mongoose');
 var jwt = require("jsonwebtoken");
 var cors = require('cors');
+var zod_1 = require("zod");
 var app = express();
 var port = 3000;
 app.use(cors());
@@ -72,7 +74,7 @@ function authentication(req, res, next) {
 app.get('/', authentication, function (req, res) {
     res.send('Hello World!njoinoirngv');
 });
-app.get('/controller', authentication, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+app.get('/controller', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, employee;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -96,20 +98,33 @@ app.get('/controller', authentication, function (req, res) { return __awaiter(_t
         }
     });
 }); });
-app.post('/admin/login', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var _a, id, password, data, token;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+app.post('/admin/login', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var inputIdPassword, parsedInput, id, password, data, token;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
                 console.log("request came");
-                _a = req.body, id = _a.id, password = _a.password;
+                inputIdPassword = zod_1.z.object({
+                    id: zod_1.z.string().max(20),
+                    password: zod_1.z.string().max(20)
+                });
+                parsedInput = inputIdPassword.safeParse(req.body);
+                if (!parsedInput.success) {
+                    return [2 /*return*/, res.status(401).json({
+                            msg: "input must be string and maxLength 20",
+                            value: "2"
+                        })];
+                }
+                id = parsedInput.data.id;
+                password = parsedInput.data.password;
                 return [4 /*yield*/, Data.findOne({ id: id, password: password })];
             case 1:
-                data = _b.sent();
+                data = _a.sent();
                 if (data) {
                     console.log("employee id found");
                     token = jwt.sign({ id: id, password: password }, secertKey, { expiresIn: "1h" });
                     res.status(200).json({ value: "1", token: token, data: data });
+                    console.log(data);
                 }
                 else {
                     console.log("incorrect id and password");
@@ -119,7 +134,7 @@ app.post('/admin/login', function (req, res) { return __awaiter(_this, void 0, v
         }
     });
 }); });
-app.post('/announcements', authentication, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+app.post('/announcements', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var data, dataUpload;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -135,7 +150,7 @@ app.post('/announcements', authentication, function (req, res) { return __awaite
         }
     });
 }); });
-app.get('/announcements', authentication, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+app.get('/announcements', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var documents;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -148,7 +163,7 @@ app.get('/announcements', authentication, function (req, res) { return __awaiter
         }
     });
 }); });
-app.get('/employeesData', authentication, function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+app.get('/employeesData', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var documents;
     return __generator(this, function (_a) {
         switch (_a.label) {

@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose=require('mongoose')
 const jwt=require("jsonwebtoken")
 const cors=require('cors')
+import {z} from "zod"
 const app = express()
 const port = 3000
  app.use(cors())
@@ -53,14 +54,25 @@ app.get('/controller', authentication,async (req:any, res:any) => {
 
 app.post('/admin/login',async (req:any, res:any) => {
   console.log("request came")
-  const {id,password}=req.body
-  // console.log(UserInfo)
- 
+  let inputIdPassword=z.object({
+    id:z.string().max(20),
+    password:z.string().max(20)
+  })
+  let parsedInput=inputIdPassword.safeParse(req.body)
+  if(!parsedInput.success){
+    return res.status(401).json({
+      msg:"input must be string and maxLength 20",
+      value:"2"
+    })
+  }
+  let id=parsedInput.data.id;
+  let password=parsedInput.data.password
   const data = await Data.findOne({id,password})
   if(data){
     console.log("employee id found")
     const token=jwt.sign({id,password},secertKey,{expiresIn:"1h"})
     res.status(200).json({value:"1",token,data})
+    console.log(data)
   }else{
     console.log("incorrect id and password")
     res.status(401).json({value:"0"})

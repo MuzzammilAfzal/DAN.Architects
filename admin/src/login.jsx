@@ -56,7 +56,12 @@ return<div  style={{background:"#d3d3d3",height:800,display:'flex',justifyConten
                     }else{
                         localStorage.setItem("controller",data.data.controller)
                     }
-                }}
+                    }else{
+                    if(data.value==2){
+                    alert("input must be string and maxLength 20")
+                    }
+                 }
+                }
                }
              }
             }>LOGIN</Button>
