@@ -36,7 +36,7 @@ return <div style={{background:"grey",width:"auto",height:"100vh",display:"flex"
           <Card  elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,width:300}}>Skills:  {data.skills}</Card>
           <Card  elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,width:300}}>Join Date:  {data.joinDate}</Card>
           <Card  elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,width:300,display:"flex",justifyItems:"center"}}>Reference:  
-          <a href={data.linkedln} >Click to view profile
+          <a href={data.linkedln} target="_blank" >Click to view profile
              <img style={{height:60}} src="https://th.bing.com/th/id/R.ef2f3c0ea2d1116f00a5bc56b8c066ce?rik=GYaDoFewrbjMYA&riu=http%3a%2f%2f1000marcas.net%2fwp-content%2fuploads%2f2020%2f01%2fLogo-Linkedin.png&ehk=S4bpGdTYO0hvPM28u%2bFMX4ma7sBWXFdx85iEGZWSx1I%3d&risl=&pid=ImgRaw&r=0" alt="" />
             </a>
           </Card>
