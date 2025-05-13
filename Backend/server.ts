@@ -2,11 +2,15 @@ const express = require('express')
 const mongoose=require('mongoose')
 const jwt=require("jsonwebtoken")
 const cors=require('cors')
+const multer =require("multer")
+
+import { log } from "console"
 import {z} from "zod"
 const app = express()
 const port = 3000
  app.use(cors())
  app.use(express.json())
+ app.use(express.urlencoded({extended:false}))
  const secertKey="DAN.Architects"
 
 
@@ -109,7 +113,11 @@ app.get('/employeesData', authentication,async(req:any, res:any) => {
   res.status(200).json(documents)
 })
 
-
+const upload = multer({ dest: "uploads/" });
+app.post("/upload",authentication,upload.single("file"),(req:any,res:any)=>{
+  console.log(req.body);
+  console.log(req.file);
+})
 
 
 

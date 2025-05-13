@@ -35,6 +35,15 @@ function AddProject(){
     const [Team,setTeam]=useState([])
      
    const [temp,settemp]=useState("")
+
+    const [file, setFile] = useState(null);
+   
+  
+
+
+
+
+
     return <div style={{padding:100,background:"#B5B5B5"}}>
         <Card elevation={24}style={{height:"auto"}}>
            <div style={{display:"flex",justifyContent:"center"}}> <h3> Project Details</h3> </div>
@@ -143,39 +152,47 @@ function AddProject(){
                      </div>
                </div>
                <div style={{height:"auto",width:400}}>
-                <Card elevation={24}style={{height:"auto",width:"auto"}}>
+                {/* <Card elevation={24}style={{height:"auto",width:"auto"}}>
                     <h3>Upload Project Title Image</h3> 
                     <input type="file" accept="image/*" onChange={(event)=>{
                            const file = event.target.files[0];
                   
                     }}></input>
                     <Button variant="contained" style={{background:"grey"}}>upload</Button>
-                </Card>
+                </Card> */}
                 <br />
-                <Card elevation={24}style={{height:250,width:"auto"}}>
+                {/* <Card elevation={24}style={{height:250,width:"auto"}}>
                     <h3>Upload Project Photos</h3> <br></br>
                     <input type="file" multiple accept="image/*" onChange={(event)=>{
                            const file = event.target.files[0];                               
                     }}></input>
                     <Button variant="contained" style={{background:"grey"}}>upload</Button>
-                </Card>
+                </Card> */}
                 <br />
                 <Card elevation={24}style={{height:250,width:"auto"}}>
                     <h3>Upload Project Files</h3> <br></br>
-                    <input type="file" multiple accept="image/*" onChange={(event)=>{
-                           const file = event.target.files[0];                               
+                    <input type="file" onChange={(event)=>{
+                            setFile(event.target.files[0])  
+                                                     
                     }}></input>
                     <Button variant="contained" style={{background:"grey"}}>upload</Button>
                 </Card>
                </div>
            </div>
            <div style={{display:"flex",justifyContent:"center", marginBottom:50}}>
-             <Button variant="contained" style={{background:"grey"}} onClick={()=>{
-
+             <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
+                  const formData = new FormData();
+                  formData.append("file", file);
+                 formData.append("project","project")
+                  const response=await fetch("http://localhost:3000/upload",{method:"POST",
+                    headers:{
+                      
+                      "token":localStorage.getItem("token")
+                    },
+                    body:formData,
+                  })
+                   console.log(response.data);
              }}>Add Project</Button> 
-              <Button variant="contained" style={{background:"grey"}} onClick={()=>{
-              console.log(Project)           
-             }}>Project</Button> 
            </div>
         </Card>
     </div>
