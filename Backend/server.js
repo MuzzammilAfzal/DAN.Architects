@@ -14,6 +14,8 @@ const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 const cors = require('cors');
 const multer = require("multer");
+require("dotenv").config();
+const File = require("./models/File");
 const zod_1 = require("zod");
 const app = express();
 const port = 3000;
@@ -102,11 +104,40 @@ app.get('/employeesData', authentication, (req, res) => __awaiter(void 0, void 0
     console.log(documents);
     res.status(200).json(documents);
 }));
-const upload = multer({ dest: "uploads/" });
-app.post("/upload", authentication, upload.single("file"), (req, res) => {
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+});
+const upload = multer({ storage: storage });
+app.post("/upload", authentication, upload.single("file"), (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(req.body);
     console.log(req.file);
-});
+    console.log(req.headers);
+    try {
+        const newFile = new File({
+            filename: req.file.originalname,
+            contentType: req.file.mimetype,
+            data: req.file.buffer,
+            // projectName:req.headers.projectName,
+            // startDate:req.headers.startDate,
+            // targetDate:req.headers.targetDate,
+            // siteLocation:req.headers.siteLocation,
+            // team:req.headers.team,
+            // details:req.headers.details,
+            // completedPercentage:req.headers.completedPercentage,
+        });
+        yield newFile.save();
+        res.status(200).json({ message: "File uploaded successfully" });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "File upload failed" });
+    }
+}));
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });

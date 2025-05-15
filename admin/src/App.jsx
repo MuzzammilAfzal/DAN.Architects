@@ -5,6 +5,7 @@ import './App.css'
 import Announcements from "./announcements.jsx";
 import Profile from "./profile.jsx";
 import AddProject from "./addProject.jsx";
+import EditProject from "./editProject.jsx";
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
            <Route path="/dashboard" element={<DashBoard></DashBoard>}/>
            <Route path="/announcements" element={<Announcements></Announcements>}/>
            <Route path="/profile" element={<Profile></Profile>}/>
-           <Route path="/addProfile" element={<AddProject></AddProject>}/>
+           <Route path="/addProject" element={<AddProject></AddProject>}/>
+           <Route path="/editProject" element={<EditProject></EditProject>}/>
         </Routes>
       </Router>
       </>

@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function AddProject(){
+
+
+   const navigate=useNavigate();
   
    const[Project,setProject]=useState(
     {
@@ -12,7 +15,8 @@ function AddProject(){
       siteLocation:"",
       team:null,
       details:"",
-      completedPercentage:"0%"
+      completedPercentage:"0%",
+      file:"",
     })
   
   
@@ -170,28 +174,42 @@ function AddProject(){
                 </Card> */}
                 <br />
                 <Card elevation={24}style={{height:250,width:"auto"}}>
-                    <h3>Upload Project Files</h3> <br></br>
+                    <h3>Upload Single Project Files</h3> <br></br>
                     <input type="file" onChange={(event)=>{
-                            setFile(event.target.files[0])  
-                                                     
+                            const fileInput=event.target.files[0];
+                            const finalFile=new File([fileInput], Project.projectName+"_ProjectDetails");
+                            setFile(finalFile)   
+                            setProject((previousData)=>({...previousData,file:Project.projectName+"_ProjectDetails"}))                  
                     }}></input>
-                    <Button variant="contained" style={{background:"grey"}}>upload</Button>
+                    
                 </Card>
                </div>
            </div>
            <div style={{display:"flex",justifyContent:"center", marginBottom:50}}>
              <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
+
                   const formData = new FormData();
                   formData.append("file", file);
-                 formData.append("project","project")
+                
                   const response=await fetch("http://localhost:3000/upload",{method:"POST",
                     headers:{
-                      
-                      "token":localStorage.getItem("token")
+                      "token":localStorage.getItem("token"),
+                      projectName:Project.projectName,
+                      startDate:Project.startDate,
+                      targetDate:Project.targetDate,
+                      siteLocation:Project.siteLocation,
+                      team:Project.team,
+                      details:Project.details,
+                      completedPercentage:Project.completedPercentage,
+                      file:Project.file,
+
                     },
                     body:formData,
                   })
                    console.log(response.data);
+                   console.log(Project);
+                  navigate("/dashboard")
+                   
              }}>Add Project</Button> 
            </div>
         </Card>

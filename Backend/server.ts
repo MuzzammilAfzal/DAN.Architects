@@ -3,6 +3,8 @@ const mongoose=require('mongoose')
 const jwt=require("jsonwebtoken")
 const cors=require('cors')
 const multer =require("multer")
+require("dotenv").config();
+const File = require("./models/File");
 
 import { log } from "console"
 import {z} from "zod"
@@ -113,10 +115,43 @@ app.get('/employeesData', authentication,async(req:any, res:any) => {
   res.status(200).json(documents)
 })
 
-const upload = multer({ dest: "uploads/" });
-app.post("/upload",authentication,upload.single("file"),(req:any,res:any)=>{
+
+
+
+const storage = multer.diskStorage({
+  destination: (req:any, file:any, cb:any) => {
+    cb(null, "uploads/");
+  },
+  filename: (req:any, file:any, cb:any) => {
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
+app.post("/upload",authentication,upload.single("file"),async(req:any,res:any)=>{
   console.log(req.body);
   console.log(req.file);
+  console.log(req.headers)
+  try {
+    const newFile = new File({
+      filename: req.file.originalname,
+      contentType: req.file.mimetype,
+      data: req.file.buffer,
+      // projectName:req.headers.projectName,
+      // startDate:req.headers.startDate,
+      // targetDate:req.headers.targetDate,
+      // siteLocation:req.headers.siteLocation,
+      // team:req.headers.team,
+      // details:req.headers.details,
+      // completedPercentage:req.headers.completedPercentage,
+    });
+    await newFile.save();
+    res.status(200).json({ message: "File uploaded successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "File upload failed" });
+  }
+
 })
 
 
@@ -140,6 +175,10 @@ const announcements=new mongoose.Schema({
   id:String
 })
 const announcementData=new mongoose.model('announcementData',announcements);
+
+
+
+
 
 
 const DANArchitects:any=mongoose.connect("mongodb+srv://muzzu2605afzall:9972228752.@clusterafzal.mzc6v.mongodb.net/EmployeeData")

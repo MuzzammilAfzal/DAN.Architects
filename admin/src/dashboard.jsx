@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
 import {Navigate, useNavigate} from 'react-router-dom'
 import React from 'react';
+import ProjectOverview from './projectOverview';
 
 
 
@@ -25,7 +26,7 @@ function DashBoard(){
            <br></br>
            <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
            onClick={()=>{
-            navigate("/addProfile")
+            navigate("/addProject")
            }}>Add New Project</Card>
          </div>
       }
@@ -95,9 +96,7 @@ function DashBoard(){
            <div >
              <h3 style={{textAlign:'center'}}>Current Project Overview</h3>
              <Card elevation={24} style={{overflowY:'scroll',height:400,width:900,padding:50,display:'flex',flexWrap:"wrap"}}>
-                <Card elevation={24} style={{height:250,width:150,padding:40,margin:20}}>
-                    Project 1
-                </Card>   
+                  <ProjectOverview></ProjectOverview>
              </Card>
            </div>
            <div >
