@@ -94,8 +94,8 @@ function DashBoard(){
              <Card elevation={24} style={{height:400,width:1000}}></Card>
            </div>
            <div >
-             <h3 style={{textAlign:'center'}}>Current Project Overview</h3>
-             <Card elevation={24} style={{overflowY:'scroll',height:400,width:900,padding:50,display:'flex',flexWrap:"wrap"}}>
+             <h3 style={{textAlign:'center'}}>Project Overview</h3>
+             <Card elevation={24} style={{height:300,width:900,padding:50,}}>
                   <ProjectOverview></ProjectOverview>
              </Card>
            </div>

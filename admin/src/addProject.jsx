@@ -102,10 +102,13 @@ function AddProject(){
                           }
                         }}>Add</Button>
                         <Button variant="contained" style={{background:"grey"}} onClick={()=>{
+                           if(temp==""){
+                           alert("plz select Team Members")
+                          }else{
                           setTeam((e)=>{const newValue=[...e]
                             newValue.pop();
                             return(newValue)
-                          })
+                          })}
                          }}>delete</Button>
                          
                       </div>
@@ -119,10 +122,14 @@ function AddProject(){
                      </div>
                      </Card><br />
                       <Button variant="contained" style={{background:"grey"}} onClick={()=>{
+                          if(Team[0]==null){
+                            alert("No Team Members selected")
+                          }else{
                             setProject((previousData)=>({
                            ...previousData,
                            team:Team
-                           }))            
+                           })) 
+                          }           
                            }}>Upload Team Members </Button>
                      <br></br>
                      <h3>Details</h3>
@@ -177,9 +184,9 @@ function AddProject(){
                     <h3>Upload Single Project Files</h3> <br></br>
                     <input type="file" onChange={(event)=>{
                             const fileInput=event.target.files[0];
-                            const finalFile=new File([fileInput], Project.projectName+"_ProjectDetails");
+                            const finalFile=new File([fileInput], Project.projectName+"file");
                             setFile(finalFile)   
-                            setProject((previousData)=>({...previousData,file:Project.projectName+"_ProjectDetails"}))                  
+                            setProject((previousData)=>({...previousData,file:Project.projectName+"file"}))                  
                     }}></input>
                     
                 </Card>
@@ -187,29 +194,33 @@ function AddProject(){
            </div>
            <div style={{display:"flex",justifyContent:"center", marginBottom:50}}>
              <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
-
+                if(Project.team==null){
+                  alert("Select Team Memebers And Upload... atlest one")
+                }else{
                   const formData = new FormData();
                   formData.append("file", file);
                 
-                  const response=await fetch("http://localhost:3000/upload",{method:"POST",
+                  const response=await fetch("http://localhost:3000/upload/files",{method:"POST",
                     headers:{
                       "token":localStorage.getItem("token"),
-                      projectName:Project.projectName,
-                      startDate:Project.startDate,
-                      targetDate:Project.targetDate,
-                      siteLocation:Project.siteLocation,
-                      team:Project.team,
-                      details:Project.details,
-                      completedPercentage:Project.completedPercentage,
-                      file:Project.file,
-
                     },
                     body:formData,
                   })
-                   console.log(response.data);
-                   console.log(Project);
+                  const data=await response.json()
+                console.log(data);
+
+                  const response2=await fetch("http://localhost:3000/upload/projectDetails",{method:"POST",
+                    headers:{
+                        "token":localStorage.getItem("token"),
+                        'Content-Type':'application/json'
+                     },
+                    body:JSON.stringify(Project)
+                })
+                const data2=await response2.json()
+                console.log(data2);
                   navigate("/dashboard")
-                   
+                }
+      
              }}>Add Project</Button> 
            </div>
         </Card>
