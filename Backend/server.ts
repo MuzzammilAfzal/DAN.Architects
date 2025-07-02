@@ -4,10 +4,10 @@ const jwt=require("jsonwebtoken")
 const cors=require('cors')
 const multer =require("multer")
 require("dotenv").config();
-const File = require("./models/File");
+// const File = require("./models/File");
 
 import { log } from "console"
-import {z} from "zod"
+import {string, z} from "zod"
 const app = express()
 const port = 3000
  app.use(cors())
@@ -111,7 +111,6 @@ app.get('/announcements', authentication,async(req:any, res:any) => {
 
 app.get('/employeesData', authentication,async(req:any, res:any) => {
   const documents= await Data.find()
-  console.log(documents)
   res.status(200).json(documents)
 })
 
@@ -128,31 +127,34 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-app.post("/upload",authentication,upload.single("file"),async(req:any,res:any)=>{
-  console.log(req.body);
-  console.log(req.file);
-  console.log(req.headers)
-  try {
-    const newFile = new File({
-      filename: req.file.originalname,
-      contentType: req.file.mimetype,
-      data: req.file.buffer,
-      // projectName:req.headers.projectName,
-      // startDate:req.headers.startDate,
-      // targetDate:req.headers.targetDate,
-      // siteLocation:req.headers.siteLocation,
-      // team:req.headers.team,
-      // details:req.headers.details,
-      // completedPercentage:req.headers.completedPercentage,
-    });
-    await newFile.save();
-    res.status(200).json({ message: "File uploaded successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "File upload failed" });
-  }
+app.post("/upload/files",authentication,upload.single("file"),async(req:any,res:any)=>{
+  
+  res.status(200).json({"message":"Data Uploaded"})
 
 })
+
+app.post('/upload/projectDetails', authentication,async(req:any, res:any) => {
+  console.log(req.body)
+  const data= req.body
+  const dataUpload=new projectDetails(data)
+   await dataUpload.save()
+   res.status(200).json({"message":"Data Uploaded"})
+})
+
+
+
+
+app.get('/project/projectDetails', authentication,async(req:any, res:any) => {
+   const allProjectDetails= await projectDetails.find()
+   res.status(200).json(allProjectDetails)
+
+})
+
+
+
+
+
+
 
 
 
@@ -175,6 +177,21 @@ const announcements=new mongoose.Schema({
   id:String
 })
 const announcementData=new mongoose.model('announcementData',announcements);
+
+
+
+
+const projectDetailsSchema = new mongoose.Schema({
+ projectName:String,
+ startDate:String,
+ targetDate:String,
+ siteLocation:String,
+ team:Array,
+ details:String,
+ completedPercentage:String,
+ file:String,
+});
+const projectDetails=new mongoose.model("projectDetails", projectDetailsSchema);
 
 
 
