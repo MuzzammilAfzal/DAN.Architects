@@ -9,13 +9,11 @@ function ProjectOverview(){
 
     const [projectDetails,setProjectDetails]=useState([]) 
     const [selectProject,setSelectProject]=useState("") 
-   //  const [ongoingProjects,setOngoingProjects]=useState([])
-   //  const [completedProjects,setCompletedProjects]=useState([])
-   //  const[displayNonAvailable1,setDisplayNonAvailable1]=useState("select project")
-   //  const[displayNonAvailable2,setDisplayNonAvailable2]=useState("select project")
+  
 
+    let ongoing=[]
+    let completed=[]
 
-   
 
 
 
@@ -28,7 +26,7 @@ function ProjectOverview(){
             response.json().then((data)=>{
              setProjectDetails(data)
              console.log(projectDetails);
-             
+             projectDisplay()
             }) 
              })
 
@@ -36,37 +34,32 @@ function ProjectOverview(){
 
 
 
-         // React.useEffect(()=>{
-         //              const ongoing=[]
-         //              const completed=[]
-         //      projectDetails.forEach((e)=>{
-                      
-         //             if(e.completedPercentage !="100%"){
-         //                setOngoingProjects((existingValue)=>[...existingValue,e])
-         //                ongoing.push(e)
-         //             }else{
-         //                setCompletedProjects((existingValue)=>[...existingValue,e])
-         //                completed.push(e)
-         //             }
-         //            })
-         //            console.log(ongoingProjects)
-         //            console.log(completedProjects)
-         //            console.log(ongoing)
-         //            console.log(completed)
-                    
-             
-         //       if(ongoingProjects.length===0){
-         //         setDisplayNonAvailable1("No Ongoing Projects")
-         //        }else{
-         //          setDisplayNonAvailable1("select project")
-         //        }
-         //       if(completedProjects.length===0){
-         //          setDisplayNonAvailable2("No Completed Projects")
-         //        }
-         // },[])
-
-
-
+              function projectDisplay(){
+                    ongoing.length=0
+                    completed.length=0
+                for(let i=0;i<projectDetails.length;i++){
+                  if(projectDetails[i].completedPercentage==="100%"){
+                     completed.push(projectDetails[i])
+                   }else{
+                    ongoing.push(projectDetails[i])
+                   }
+                }
+              }
+              
+              function renderProjectOngoingNonAvailable(){
+                  if(ongoing.length===0){
+                    return <option value="">No Ongoing Projects</option>
+                  }
+                }
+        
+   
+               
+              function renderProjectCompletedNonAvailable(){
+                  if(completed.length===0){
+                    return  <option value="">no completed projects</option> 
+                  }
+                }
+              
 
 
 
@@ -75,13 +68,14 @@ function ProjectOverview(){
          <Card elevation={24} style={{height:"auto",width:"50%",padding:20,margin:20}}>
              <h3>Ongoing Projects</h3>
              <select name="selectProject" id="selectProject" style={{height:50,width:"100%"}} onChange={()=>{
-               setSelectProject(document.getElementById("selectProject").value)}}>
+               setSelectProject(document.getElementById("selectProject").value)
+               console.log(selectProject)}}>
                <option value=""disabled selected hidden>select project</option>
-                 {projectDetails.map(e=>{
+               {projectDetails.map(e=>{
                    if(e.completedPercentage!="100%"){
                      return <option value={e.projectName}> {e.projectName}  </option>
                    }
-                 })}
+                 })}{projectDisplay()}{renderProjectOngoingNonAvailable()}
               </select>
               <div style={{padding:10}}>
                 <Button variant="contained" style={{background:"grey",marginRight:10}}>View Details</Button>
@@ -95,11 +89,14 @@ function ProjectOverview(){
               <select name="selectProject" id="selectProject" style={{height:50,width:"100%"}} onChange={()=>{
                setSelectProject(document.getElementById("selectProject").value)}}>
                    <option value=""disabled selected hidden>select project</option>
-               {projectDetails.map(e=>{
+              
+                 {projectDetails.map(e=>{
                    if(e.completedPercentage=="100%"){
                      return <option value={e.projectName}> {e.projectName}  </option>
                    }
-                 })}
+                 })}{projectDisplay()}{renderProjectCompletedNonAvailable()}
+                   
+                 
                  
               </select>
 
