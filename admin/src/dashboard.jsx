@@ -50,7 +50,7 @@ function DashBoard(){
     return<>
     <div style={{display:'flex'}}>
         <div>
-           <Paper elevation={24} style={{width:300,height:"100%",padding:20,position:"fixed"}}>
+           <Paper elevation={24} style={{width:300,padding:20,position:"fixed"}}>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}>DashBoard</Card>
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}

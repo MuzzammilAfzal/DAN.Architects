@@ -1,15 +1,18 @@
-import { Button, Card } from "@mui/material"
+import { Button, Card, Popover } from "@mui/material"
 import React, { useState } from "react"
+import {Navigate, useNavigate} from 'react-router-dom'
+import { array } from "zod";
 
 
 
 
 function ProjectOverview(){
 
-
+    const navigate=useNavigate();
     const [projectDetails,setProjectDetails]=useState([]) 
-    const [selectProject,setSelectProject]=useState("") 
-  
+    const [selectedProject,setSelectedProject]=useState("") 
+    const [selectedProjectDetails,setSelectedProjectDetails]=useState([])
+
 
     let ongoing=[]
     let completed=[]
@@ -25,7 +28,6 @@ function ProjectOverview(){
             }).then((response)=>{
             response.json().then((data)=>{
              setProjectDetails(data)
-             console.log(projectDetails);
              projectDisplay()
             }) 
              })
@@ -59,7 +61,11 @@ function ProjectOverview(){
                     return  <option value="">no completed projects</option> 
                   }
                 }
-              
+
+
+                function findProject(){
+                  setSelectedProjectDetails(projectDetails.find(obj=>obj.projectName===selectedProject))
+                }
 
 
 
@@ -67,9 +73,10 @@ function ProjectOverview(){
     return <div style={{display:"flex",justifyContent:"center",alignItems:"center"}}>
          <Card elevation={24} style={{height:"auto",width:"50%",padding:20,margin:20}}>
              <h3>Ongoing Projects</h3>
-             <select name="selectProject" id="selectProject" style={{height:50,width:"100%"}} onChange={()=>{
-               setSelectProject(document.getElementById("selectProject").value)
-               console.log(selectProject)}}>
+             <select name="selectProject" id="selectProject1" style={{height:50,width:"100%"}} onChange={()=>{
+               setSelectedProject(document.getElementById("selectProject1").value)
+               findProject()
+               }}>
                <option value=""disabled selected hidden>select project</option>
                {projectDetails.map(e=>{
                    if(e.completedPercentage!="100%"){
@@ -78,8 +85,15 @@ function ProjectOverview(){
                  })}{projectDisplay()}{renderProjectOngoingNonAvailable()}
               </select>
               <div style={{padding:10}}>
-                <Button variant="contained" style={{background:"grey",marginRight:10}}>View Details</Button>
+                <Button variant="contained" style={{background:"grey",marginRight:10}} onClick={()=>{
+                  if(selectedProject===""){
+                    alert("plz select project")
+                  }else{
+                  navigate("/viewProjectDetails?"+selectedProject,{state:{array:selectedProjectDetails}})
+                  }
+                }}>View Details</Button>
                 <Button variant="contained" style={{background:"grey"}}>Edit Details</Button>
+                
               </div>
          </Card>
 
@@ -87,7 +101,7 @@ function ProjectOverview(){
         <Card elevation={24} style={{height:"auto",width:"50%",padding:20,margin:20}}>
              <h4 style={{display:"inline-block"}}>Completed Projects</h4>
               <select name="selectProject" id="selectProject" style={{height:50,width:"100%"}} onChange={()=>{
-               setSelectProject(document.getElementById("selectProject").value)}}>
+               setSelectedProject(document.getElementById("selectProject").value)}}>
                    <option value=""disabled selected hidden>select project</option>
               
                  {projectDetails.map(e=>{
@@ -101,7 +115,13 @@ function ProjectOverview(){
               </select>
 
              <div style={{padding:10}}>
-                <Button variant="contained" style={{background:"grey"}}>Veiw Details</Button>
+                <Button variant="contained" style={{background:"grey"}} onClick={()=>{
+                  if(selectedProject===""){
+                    alert("plz select project")
+                  }else{
+                  navigate("/viewProjectDetails",{state:{"projectName":selectedProject}})
+                  }
+                }}>Veiw Details</Button>
              </div>
         </Card>
     </div>

@@ -6,6 +6,7 @@ import Announcements from "./announcements.jsx";
 import Profile from "./profile.jsx";
 import AddProject from "./addProject.jsx";
 import EditProject from "./editProject.jsx";
+import ViewProjectDetails from "./viewProjectDetails.jsx";
 
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
            <Route path="/profile" element={<Profile></Profile>}/>
            <Route path="/addProject" element={<AddProject></AddProject>}/>
            <Route path="/editProject" element={<EditProject></EditProject>}/>
+           <Route path="/viewProjectDetails" element={<ViewProjectDetails></ViewProjectDetails>}/>
+
         </Routes>
       </Router>
       </>
