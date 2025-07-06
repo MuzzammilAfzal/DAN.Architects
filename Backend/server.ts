@@ -3,6 +3,7 @@ const mongoose=require('mongoose')
 const jwt=require("jsonwebtoken")
 const cors=require('cors')
 const multer =require("multer")
+const path=require("path")
 require("dotenv").config();
 // const File = require("./models/File");
 
@@ -133,7 +134,15 @@ app.post("/upload/files",authentication,upload.single("file"),async(req:any,res:
 
 })
 
-app.post('/upload/projectDetails', authentication,async(req:any, res:any) => {
+app.get('/download/:filename', authentication,(req:any, res:any) => {
+  const filePath = path.join(__dirname, 'uploads', req.params.filename);
+  res.download(filePath);
+})
+
+
+
+
+app.post('/upload/projectDetails',authentication,async(req:any, res:any) => {
   console.log(req.body)
   const data= req.body
   const dataUpload=new projectDetails(data)

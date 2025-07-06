@@ -54,9 +54,11 @@ function AddProject(){
          <div style={{display:"flex", justifyContent:"space-evenly"}}>
                <div style={{padding:50}}>
                    <TextField label="ProjectName" variant="standard" onChange={(event)=>{
+                        let project=event.target.value
+                        let projectName=project.replace(" ","_")
                     setProject((previousData)=>({
                       ...previousData,
-                      projectName:event.target.value
+                      projectName:projectName
                     }))
                    }}/><br></br>
                    <div style={{display:"flex",gap:30}}>
