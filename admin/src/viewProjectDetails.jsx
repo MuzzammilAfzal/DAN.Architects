@@ -45,6 +45,13 @@ function ViewProjectDetails(){
 
 
 
+     function RenderEditButton(){
+      if(project.completedPercentage!=="100%"){
+          return  <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
+                       }}>Edit</Button> 
+      }
+     }
+
 
 
 
@@ -67,6 +74,9 @@ function ViewProjectDetails(){
                     <div style={{display:"flex",gap:30}}>  
                         <Card  elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,width:300}}>Percentage of Completion:   {project.completedPercentage}</Card>
                         <Card  elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,width:300}}>Project File :  <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
+                          if(project.file===""){
+                             alert("their is no file for this project")
+                          }else{
                           fetch(`http://localhost:3000/download/${project.file}`,{method:"GET",
                              headers:{
                              "token":localStorage.getItem("token")
@@ -81,12 +91,11 @@ function ViewProjectDetails(){
                            a.click();
                            a.remove();
                           })
-                       }}>Click Here to Download</Button> </Card>
+                       }}}>Click Here to Download</Button> </Card>
                     </div> 
                     <br />
                      <div style={{display:"flex",justifyContent:"center"}}>
-                     <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
-                       }}>Edit</Button> 
+                       {RenderEditButton()}
                      </div>
                </div>
            </div>
