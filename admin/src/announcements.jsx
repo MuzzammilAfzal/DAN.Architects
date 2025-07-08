@@ -1,5 +1,5 @@
 import { Button, Card } from '@mui/material';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import {Navigate, useNavigate} from 'react-router-dom'
 
 
@@ -7,6 +7,11 @@ import {Navigate, useNavigate} from 'react-router-dom'
  function Announcements(){
   if(localStorage.getItem("token")){   
   const navigate=useNavigate();
+
+
+    useEffect(() => {
+    window.scrollTo(0, 0);
+      }, []);
    
 
     const [announcements,setannouncements]=useState(null)

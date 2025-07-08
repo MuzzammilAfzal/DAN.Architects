@@ -4,6 +4,7 @@ const jwt=require("jsonwebtoken")
 const cors=require('cors')
 const multer =require("multer")
 const path=require("path")
+const fs = require('fs');
 require("dotenv").config();
 // const File = require("./models/File");
 
@@ -149,6 +150,20 @@ app.post('/upload/projectDetails',authentication,async(req:any, res:any) => {
    await dataUpload.save()
    res.status(200).json({"message":"Data Uploaded"})
 })
+
+
+app.delete('/delete-file/:filename',authentication, (req:any, res:any) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'uploads', filename);
+
+  fs.unlink(filePath, (err:any) => {
+    if (err) {
+      console.error('Error deleting file:', err);
+      return res.status(500).json({ message: 'Failed to delete file' });
+    }
+    res.json({ message: 'File deleted successfully' });
+  });
+});
 
 
 

@@ -7,6 +7,12 @@ import React from "react"
 
 function ViewProjectDetails(){
 
+
+   useEffect(() => {
+  window.scrollTo(0, 0);
+    }, []);
+
+
     const location = useLocation();
     const querry = location.search
     let projectName=querry.replace("?","")
@@ -48,7 +54,8 @@ function ViewProjectDetails(){
      function RenderEditButton(){
       if(project.completedPercentage!=="100%"){
           return  <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
-                       }}>Edit</Button> 
+          navigate("/editProject",{state:{"project":project}})
+          }}>Edit</Button> 
       }
      }
 

@@ -7,6 +7,12 @@ import { date } from "zod"
 
 function Profile(){
     const [data,setdata]=useState({})
+    
+    useEffect(() => {
+    window.scrollTo(0, 0);
+    }, []);
+
+
     useEffect(()=>{
        async function fetchData (){
         const response=await fetch("http://localhost:3000/profile",{

@@ -42,6 +42,7 @@ var jwt = require("jsonwebtoken");
 var cors = require('cors');
 var multer = require("multer");
 var path = require("path");
+var fs = require('fs');
 require("dotenv").config();
 var zod_1 = require("zod");
 var app = express();
@@ -227,6 +228,17 @@ app.post('/upload/projectDetails', authentication, function (req, res) { return 
         }
     });
 }); });
+app.delete('/delete-file/:filename', function (req, res) {
+    var filename = req.params.filename;
+    var filePath = path.join(__dirname, 'uploads', filename);
+    fs.unlink(filePath, function (err) {
+        if (err) {
+            console.error('Error deleting file:', err);
+            return res.status(500).json({ message: 'Failed to delete file' });
+        }
+        res.json({ message: 'File deleted successfully' });
+    });
+});
 app.get('/project/projectDetails', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var allProjectDetails;
     return __generator(this, function (_a) {
