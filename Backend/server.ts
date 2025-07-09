@@ -166,6 +166,17 @@ app.delete('/delete-file/:filename',authentication, (req:any, res:any) => {
 });
 
 
+app.put('/upload/update',authentication, async (req:any, res:any) => {
+  const { _id, ...updateFields } = req.body;
+  const result = await projectDetails.updateOne(
+      { _id },
+      { $set: updateFields })
+  if(result){res.status(200).json({message:"successfull update"})  
+  }else{res.status(200).json({message:"successfull update"})}
+})
+
+
+
 
 
 app.get('/project/projectDetails', authentication,async(req:any, res:any) => {

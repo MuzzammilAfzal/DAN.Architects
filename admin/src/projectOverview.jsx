@@ -86,8 +86,7 @@ function ProjectOverview(){
                   }else{
                   navigate("/viewProjectDetails?"+selectedProject)
                   }
-                }}>View Details</Button>
-                <Button variant="contained" style={{background:"grey"}}>Edit Details</Button>
+                }}>View & Edit Details</Button>
                 
               </div>
          </Card>

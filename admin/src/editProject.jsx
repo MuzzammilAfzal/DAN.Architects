@@ -95,24 +95,24 @@ console.log(Team)
         <Card elevation={24}style={{height:"auto"}}>
            <div style={{display:"flex",justifyContent:"center"}}> <h3> Project Details</h3> </div>
          <div style={{display:"flex", justifyContent:"space-evenly"}}>
-               <div style={{padding:50}}>
+               <div style={{padding:50,paddingBottom:10}}>
                 <h5>Note: ProjectName Cannot be Changed</h5>
-                   <TextField label="ProjectName" value={Project?.projectName} /><br></br>
+                   <TextField label="ProjectName"  variant="standard" value={Project?.projectName} /><br></br>
                    <div style={{display:"flex",gap:30}}>
-                      <TextField label="Start Date" value={Project?.startDate}  onChange={(event)=>{
+                      <TextField label="Start Date"   variant="standard" value={Project?.startDate}  onChange={(event)=>{
                      setProject((previousData)=>({
                       ...previousData,
                       startDate:event.target.value
                     }))
                    }}/>
-                      <TextField label="Target Date" value={Project?.targetDate} onChange={(event)=>{
+                      <TextField label="Target Date"   variant="standard" value={Project?.targetDate} onChange={(event)=>{
                     setProject((previousData)=>({
                       ...previousData,
                       targetDate:event.target.value
                     }))
                    }}/><br></br>
                    </div>
-                   <TextField label="Site Location" value={Project?.siteLocation}   onChange={(event)=>{
+                   <TextField label="Site Location"   variant="standard" value={Project?.siteLocation}   onChange={(event)=>{
                     setProject((previousData)=>({
                       ...previousData,
                       siteLocation:event.target.value
@@ -207,11 +207,11 @@ console.log(Team)
            </div>
            <div style={{display:"flex",justifyContent:"center", marginBottom:50}}>
              <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
-
-                  const formData = new FormData();
+                  if(file!==null){
+                     const formData = new FormData();
                   formData.append("file", file);
                 
-                  const response=await fetch("http://localhost:3000/upload",{method:"POST",
+                  const response=await fetch("http://localhost:3000/upload/files",{method:"POST",
                     headers:{
                       
                       "token":localStorage.getItem("token")
@@ -219,8 +219,21 @@ console.log(Team)
                     body:formData,
                   })
                    console.log(response.data);
-                   console.log(Project);
-                  navigate("/dashboard")
+                  }
+                 
+          
+                  await  fetch("http://localhost:3000/upload/update", {
+                   method: "PUT",
+                   headers: {
+                    "token":localStorage.getItem("token"),
+                   "Content-Type": "application/json"
+                   },
+                   body: JSON.stringify(Project)
+                   });
+                    console.log(Project);
+              
+                   navigate("/viewProjectDetails?"+Project.projectName,{replace:true})
+
                    
              }}>Save Changes</Button> 
            </div>

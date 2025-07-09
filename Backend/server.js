@@ -35,6 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require('express');
 var mongoose = require('mongoose');
@@ -228,7 +239,7 @@ app.post('/upload/projectDetails', authentication, function (req, res) { return 
         }
     });
 }); });
-app.delete('/delete-file/:filename', function (req, res) {
+app.delete('/delete-file/:filename', authentication, function (req, res) {
     var filename = req.params.filename;
     var filePath = path.join(__dirname, 'uploads', filename);
     fs.unlink(filePath, function (err) {
@@ -239,6 +250,25 @@ app.delete('/delete-file/:filename', function (req, res) {
         res.json({ message: 'File deleted successfully' });
     });
 });
+app.put('/upload/update', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, _id, updateFields, result;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, _id = _a._id, updateFields = __rest(_a, ["_id"]);
+                return [4 /*yield*/, projectDetails.updateOne({ _id: _id }, { $set: updateFields })];
+            case 1:
+                result = _b.sent();
+                if (result) {
+                    res.status(200).json({ message: "successfull update" });
+                }
+                else {
+                    res.status(200).json({ message: "successfull update" });
+                }
+                return [2 /*return*/];
+        }
+    });
+}); });
 app.get('/project/projectDetails', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var allProjectDetails;
     return __generator(this, function (_a) {

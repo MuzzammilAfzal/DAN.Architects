@@ -56,7 +56,7 @@ function ViewProjectDetails(){
           return  <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
           navigate("/editProject",{state:{"project":project}})
           }}>Edit</Button> 
-      }
+      }else{ return <h6 style={{display:"inline-block"}}>(Note: Completed Projects Details cannot be Edited)</h6> }
      }
 
 
