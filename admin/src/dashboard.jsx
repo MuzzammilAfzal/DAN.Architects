@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import {Navigate, useNavigate} from 'react-router-dom'
 import React from 'react';
 import ProjectOverview from './projectOverview';
+import Tasks from './tasks';
 
 
 
@@ -90,8 +91,7 @@ function DashBoard(){
              
            </div>
            <div >
-             <h3 style={{textAlign:'center'}}>Upcoming Tasks</h3>
-             <Card elevation={24} style={{height:400,width:1000}}></Card>
+            <Card elevation={24} style={{height:400,width:1000,marginTop:50,background:"#d3d3d3"}}> <Tasks></Tasks></Card>
            </div>
            <div >
              <h3 style={{textAlign:'center',marginBottom:0}}>Project Overview</h3>
