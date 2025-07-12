@@ -9,7 +9,7 @@ require("dotenv").config();
 // const File = require("./models/File");
 
 import { log } from "console"
-import {string, z} from "zod"
+import {any, string, z} from "zod"
 const app = express()
 const port = 3000
  app.use(cors())
@@ -172,7 +172,7 @@ app.put('/upload/update',authentication, async (req:any, res:any) => {
       { _id },
       { $set: updateFields })
   if(result){res.status(200).json({message:"successfull update"})  
-  }else{res.status(200).json({message:"successfull update"})}
+  }else{res.status(400).json({message:"error update"})}
 })
 
 
@@ -186,17 +186,66 @@ app.get('/project/projectDetails', authentication,async(req:any, res:any) => {
 })
 
 
-app.post('/task/upload/dailyTask',authentication,async(res:any,req:any)=>{
-// const task=req.body
-//   const data= await Data.findOne(task?.id)
-//   if(data){
-//    await data.dailyTask.push(task?.task)
-//     data.save()
-//     res.status(200).json({message:"success upload"})
-//   }else{
-//     res.status(400).json({message:"error"})
-//   }
-console.log(req.headers)
+app.post('/task/upload/dailyTask',authentication,async(req:any,res:any)=>{
+const {id,task}=req.body
+  const data= await Data.findOne({id})
+  if(data){
+   await data.dailyTask.push(task)
+    data.save()
+    res.status(200).json({message:"success upload"})
+  }else{
+    res.status(400).json({message:"error"})
+  }
+console.log(req.body)
+
+})
+
+
+app.post('/task/upload/weeklyTask',authentication,async(req:any,res:any)=>{
+const {id,task}=req.body
+  const data= await Data.findOne({id})
+  if(data){
+   await data.weeklyTask.push(task)
+    data.save()
+    res.status(200).json({message:"success upload"})
+  }else{
+    res.status(400).json({message:"error"})
+  }
+console.log(req.body)
+
+})
+
+app.put('/task/updateDaily',authentication, async (req:any, res:any) => {
+  const updateDailyTask=req.body
+  console.log(updateDailyTask);
+  const id=req.headers.id
+  const data = await Data.findOne({ id });
+   if (!data) {
+      return res.status(400).json({ message: "Data not found" });
+    }
+
+    const newData = data.dailyTask.filter((task: any) => !updateDailyTask.includes(task));
+
+    data.dailyTask = newData;
+    await data.save();
+    res.status(200).json({message:"success updATE"})
+
+})
+
+app.put('/task/updateWeekly',authentication, async (req:any, res:any) => {
+  const updateWeeklyTask=req.body
+  console.log(updateWeeklyTask);
+  const id=req.headers.id
+  const data = await Data.findOne({ id });
+   if (!data) {
+      return res.status(400).json({ message: "Data not found" });
+    }
+
+    const newData = data.weeklyTask.filter((task: any) => !updateWeeklyTask.includes(task));
+
+    data.weeklyTask = newData;
+    await data.save();
+    res.status(200).json({message:"success updATE"})
 
 })
 

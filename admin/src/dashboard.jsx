@@ -23,12 +23,7 @@ function DashBoard(){
            <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
            onClick={()=>{
             navigate("/announcements")
-           }}>Add New Announcements</Card>
-           <br></br>
-           <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
-           onClick={()=>{
-            navigate("/addProject")
-           }}>Add New Project</Card>
+           }}>Add New Announcements</Card>   
          </div>
       }
     }
@@ -60,6 +55,11 @@ function DashBoard(){
               }}
              >Profile</Card>
              <RenderButton></RenderButton>
+             <br />
+               <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
+                onClick={()=>{
+                 navigate("/addProject")
+               }}>Add New Project</Card>
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}} onClick={()=>{
                  localStorage.removeItem("token")
@@ -73,6 +73,7 @@ function DashBoard(){
            <div >
              <h3 style={{textAlign:'center'}}>Announcements</h3>
              <Card elevation={24} style={{height:400,width:1000,overflowY:"auto",display:'flex',flexDirection:"column-reverse"}}>
+              <h5 style={{textAlign:'center'}}>(note:only controller can make announcement)</h5>
                <div>
                 {
                     announcement.map(value=>{

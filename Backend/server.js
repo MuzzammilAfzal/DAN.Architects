@@ -263,7 +263,7 @@ app.put('/upload/update', authentication, function (req, res) { return __awaiter
                     res.status(200).json({ message: "successfull update" });
                 }
                 else {
-                    res.status(200).json({ message: "successfull update" });
+                    res.status(400).json({ message: "error update" });
                 }
                 return [2 /*return*/];
         }
@@ -281,19 +281,102 @@ app.get('/project/projectDetails', authentication, function (req, res) { return 
         }
     });
 }); });
-app.post('/task/upload/dailyTask', authentication, function (res, req) { return __awaiter(void 0, void 0, void 0, function () {
+app.post('/task/upload/dailyTask', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, id, task, data;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, id = _a.id, task = _a.task;
+                return [4 /*yield*/, Data.findOne({ id: id })];
+            case 1:
+                data = _b.sent();
+                if (!data) return [3 /*break*/, 3];
+                return [4 /*yield*/, data.dailyTask.push(task)];
+            case 2:
+                _b.sent();
+                data.save();
+                res.status(200).json({ message: "success upload" });
+                return [3 /*break*/, 4];
+            case 3:
+                res.status(400).json({ message: "error" });
+                _b.label = 4;
+            case 4:
+                console.log(req.body);
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.post('/task/upload/weeklyTask', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, id, task, data;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _a = req.body, id = _a.id, task = _a.task;
+                return [4 /*yield*/, Data.findOne({ id: id })];
+            case 1:
+                data = _b.sent();
+                if (!data) return [3 /*break*/, 3];
+                return [4 /*yield*/, data.weeklyTask.push(task)];
+            case 2:
+                _b.sent();
+                data.save();
+                res.status(200).json({ message: "success upload" });
+                return [3 /*break*/, 4];
+            case 3:
+                res.status(400).json({ message: "error" });
+                _b.label = 4;
+            case 4:
+                console.log(req.body);
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.put('/task/updateDaily', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var updateDailyTask, id, data, newData;
     return __generator(this, function (_a) {
-        // const task=req.body
-        //   const data= await Data.findOne(task?.id)
-        //   if(data){
-        //    await data.dailyTask.push(task?.task)
-        //     data.save()
-        //     res.status(200).json({message:"success upload"})
-        //   }else{
-        //     res.status(400).json({message:"error"})
-        //   }
-        console.log(req.headers);
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                updateDailyTask = req.body;
+                console.log(updateDailyTask);
+                id = req.headers.id;
+                return [4 /*yield*/, Data.findOne({ id: id })];
+            case 1:
+                data = _a.sent();
+                if (!data) {
+                    return [2 /*return*/, res.status(400).json({ message: "Data not found" })];
+                }
+                newData = data.dailyTask.filter(function (task) { return !updateDailyTask.includes(task); });
+                data.dailyTask = newData;
+                return [4 /*yield*/, data.save()];
+            case 2:
+                _a.sent();
+                res.status(200).json({ message: "success updATE" });
+                return [2 /*return*/];
+        }
+    });
+}); });
+app.put('/task/updateWeekly', authentication, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var updateWeeklyTask, id, data, newData;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                updateWeeklyTask = req.body;
+                console.log(updateWeeklyTask);
+                id = req.headers.id;
+                return [4 /*yield*/, Data.findOne({ id: id })];
+            case 1:
+                data = _a.sent();
+                if (!data) {
+                    return [2 /*return*/, res.status(400).json({ message: "Data not found" })];
+                }
+                newData = data.weeklyTask.filter(function (task) { return !updateWeeklyTask.includes(task); });
+                data.weeklyTask = newData;
+                return [4 /*yield*/, data.save()];
+            case 2:
+                _a.sent();
+                res.status(200).json({ message: "success updATE" });
+                return [2 /*return*/];
+        }
     });
 }); });
 app.listen(port, function () {
