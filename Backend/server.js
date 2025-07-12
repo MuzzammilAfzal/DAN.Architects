@@ -281,13 +281,30 @@ app.get('/project/projectDetails', authentication, function (req, res) { return 
         }
     });
 }); });
+app.post('/task/upload/dailyTask', authentication, function (res, req) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        // const task=req.body
+        //   const data= await Data.findOne(task?.id)
+        //   if(data){
+        //    await data.dailyTask.push(task?.task)
+        //     data.save()
+        //     res.status(200).json({message:"success upload"})
+        //   }else{
+        //     res.status(400).json({message:"error"})
+        //   }
+        console.log(req.headers);
+        return [2 /*return*/];
+    });
+}); });
 app.listen(port, function () {
     console.log("Server listening on port ".concat(port));
 });
 //database//
 var userSchema = new mongoose.Schema({
     id: String,
-    password: String
+    password: String,
+    dailyTask: [String],
+    weeklyTask: [String]
 });
 var Data = new mongoose.model('Data', userSchema);
 var announcements = new mongoose.Schema({

@@ -7,12 +7,18 @@ function Tasks(){
     const [renderAddDaily,setRenderAddDaily]=useState(false)
     const [addTaskWeekly,setAddTaskWeekly]=useState(false)
     const [renderAddWeekly,setRenderAddWeekly]=useState(false)
+    const [task,setTask]=useState({
+        id:localStorage.getItem("id"),
+        task1:""
+    })
 
+    console.log(task);
+    
     function inputTaskDaily(){
 
         return <div>
                <textarea style={{marginLeft:12,width:"90%",height:60}} onChange={(event)=>{
-                   
+                   setTask((prev)=>({...prev,task1:event.target.value}))
                      }}></textarea>
         </div>
     }
@@ -20,7 +26,20 @@ function Tasks(){
     function ButtonAddDaily(){
 
         return <div>
-        <Button variant="contained" style={{background:"grey",marginLeft:10}}>add</Button>
+        <Button variant="contained" style={{background:"grey",marginLeft:10}} onClick={async()=>{
+          const response=await fetch("http://localhost:3000/task/upload/dailyTask",{method:"POST",
+                    headers:{
+                        "token":localStorage.getItem("token"),
+                        'Content-Type':'application/json'
+                     },
+                    body:JSON.stringify({
+                        "id":task.id,
+                        "task":task.task1
+                    })
+                })
+                const data=await response.json()
+                console.log(data);
+        }}>add</Button>
         <Button variant="contained" style={{background:"grey",marginLeft:10}} onClick={()=>{
          setAddTaskDaily(false)
          setRenderAddDaily(false)
@@ -43,7 +62,9 @@ function Tasks(){
     function ButtonAddWeekly(){
 
         return <div>
-        <Button variant="contained" style={{background:"grey",marginLeft:10}}>add</Button>
+        <Button variant="contained" style={{background:"grey",marginLeft:10}} onClick={()=>{
+             
+        }}>add</Button>
         <Button variant="contained" style={{background:"grey",marginLeft:10}} onClick={()=>{
          setAddTaskWeekly(false)
          setRenderAddWeekly(false)

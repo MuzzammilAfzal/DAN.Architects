@@ -186,7 +186,19 @@ app.get('/project/projectDetails', authentication,async(req:any, res:any) => {
 })
 
 
+app.post('/task/upload/dailyTask',authentication,async(res:any,req:any)=>{
+// const task=req.body
+//   const data= await Data.findOne(task?.id)
+//   if(data){
+//    await data.dailyTask.push(task?.task)
+//     data.save()
+//     res.status(200).json({message:"success upload"})
+//   }else{
+//     res.status(400).json({message:"error"})
+//   }
+console.log(req.headers)
 
+})
 
 
 
@@ -202,7 +214,9 @@ app.listen(port, () => {
 //database//
 const userSchema=new mongoose.Schema({
   id: String,
-  password:String
+  password:String,
+  dailyTask:[String],
+  weeklyTask:[String]
 
 })
 const Data=new mongoose.model('Data',userSchema);
