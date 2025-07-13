@@ -57,7 +57,7 @@ var fs = require('fs');
 require("dotenv").config();
 var zod_1 = require("zod");
 var app = express();
-var port = 3000;
+var port = 5000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
