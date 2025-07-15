@@ -100,8 +100,8 @@ function DashBoard(){
              <ProjectOverview></ProjectOverview>
            </div>
            <div >
-             <h3 style={{textAlign:'center'}}>Recent Activity</h3>
-             <Card elevation={24} style={{height:400,width:1000}}></Card>
+             
+             <Card elevation={24} style={{height:400,width:1000}}><h3 style={{textAlign:'center'}}>below part is under development</h3></Card>
            </div>
        </div>
     </div>
