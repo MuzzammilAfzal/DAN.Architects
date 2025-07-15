@@ -1,6 +1,8 @@
 import { Button, Card, TextField, Box, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+const baseURL=import.meta.env.VITE_BASE_URL;
+
 
 function Announcements() {
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ function Announcements() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/announcements", {
+      const response = await fetch(`${baseURL}/announcements`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import { Button, Card, Popover } from "@mui/material"
 import React, { useState } from "react"
 import {Navigate, useNavigate} from 'react-router-dom'
+const baseURL=import.meta.env.VITE_BASE_URL;
 
 
 
@@ -20,7 +21,7 @@ function ProjectOverview(){
 
 
        React.useEffect(()=>{
-           fetch("http://localhost:3000/project/projectDetails",{method:"GET",
+           fetch(`${baseURL}/project/projectDetails`,{method:"GET",
              headers:{
                "token":localStorage.getItem("token")
              }

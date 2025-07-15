@@ -1,6 +1,7 @@
 import { Button, Card, TextField, Grid, Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+const baseURL=import.meta.env.VITE_BASE_URL;
 
 function AddProject() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function AddProject() {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:3000/employeesData", {
+    fetch(`${baseURL}/employeesData`, {
       method: "GET",
       headers: {
         token: localStorage.getItem("token"),
@@ -195,7 +196,7 @@ function AddProject() {
               const formData = new FormData();
               formData.append("file", file);
 
-              const uploadRes = await fetch("http://localhost:3000/upload/files", {
+              const uploadRes = await fetch(`${baseURL}/upload/files`, {
                 method: "POST",
                 headers: {
                   token: localStorage.getItem("token"),
@@ -204,7 +205,7 @@ function AddProject() {
               });
               const uploadData = await uploadRes.json();
 
-              const projectRes = await fetch("http://localhost:3000/upload/projectDetails", {
+              const projectRes = await fetch(`${baseURL}/upload/projectDetails`, {
                 method: "POST",
                 headers: {
                   token: localStorage.getItem("token"),

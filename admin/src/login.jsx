@@ -2,11 +2,11 @@ import  {Card} from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {Navigate, useNavigate} from 'react-router-dom'
+const baseURL=import.meta.env.VITE_BASE_URL
 
 
 function Login(){
     const navigate=useNavigate();
-
    
     let User={
         id:"",
@@ -35,7 +35,7 @@ return<div  style={{background:"#d3d3d3",height:800,display:'flex',justifyConten
                  console.log("plz enter Both Username and password")
                  alert('Plz Enter Both Username and password')
                 }else{
-                const response=await fetch("http://localhost:3000/admin/login",{method:"POST",
+                const response=await fetch(`${baseURL}/admin/login`,{method:"POST",
                     headers:{
                         'Content-Type':'application/json'
                      },

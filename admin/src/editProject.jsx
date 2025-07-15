@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+const baseURL=import.meta.env.VITE_BASE_URL;
+
 
 function EditProject() {
   const [Project, setProject] = useState();
@@ -34,7 +36,7 @@ function EditProject() {
   }, [Project?.team]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/employeesData", {
+    fetch(`${baseURL}/employeesData`, {
       method: "GET",
       headers: {
         token: localStorage.getItem("token"),
@@ -73,7 +75,7 @@ function EditProject() {
           color="error"
           fullWidth
           onClick={async () => {
-            await fetch(`http://localhost:3000/delete-file/${Project.file}`, {
+            await fetch(`${baseURL}/delete-file/${Project.file}`, {
               method: "DELETE",
               headers: {
                 token: localStorage.getItem("token"),
@@ -265,7 +267,7 @@ function EditProject() {
               if (file) {
                 const formData = new FormData();
                 formData.append("file", file);
-                await fetch("http://localhost:3000/upload/files", {
+                await fetch(`${baseURL}/upload/files`, {
                   method: "POST",
                   headers: {
                     token: localStorage.getItem("token"),
@@ -274,7 +276,7 @@ function EditProject() {
                 });
               }
 
-              await fetch("http://localhost:3000/upload/update", {
+              await fetch(`${baseURL}/upload/update`, {
                 method: "PUT",
                 headers: {
                   token: localStorage.getItem("token"),

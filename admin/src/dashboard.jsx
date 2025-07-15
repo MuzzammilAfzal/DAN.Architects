@@ -6,6 +6,7 @@ import {Navigate, useNavigate} from 'react-router-dom'
 import React from 'react';
 import ProjectOverview from './projectOverview';
 import Tasks from './tasks';
+const baseURL=import.meta.env.VITE_BASE_URL;
 
 
 
@@ -29,7 +30,7 @@ function DashBoard(){
     }
     
    React.useEffect(()=>{
-        fetch("http://localhost:3000/announcements",{method:"GET",
+        fetch(`${baseURL}/announcements`,{method:"GET",
           headers:{
             "token":localStorage.getItem("token")
           }

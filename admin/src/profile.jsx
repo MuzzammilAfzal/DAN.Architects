@@ -1,5 +1,7 @@
 import { Card, Box, Typography, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
+const baseURL=import.meta.env.VITE_BASE_URL;
+
 
 function Profile() {
   const [data, setData] = useState({});
@@ -11,7 +13,7 @@ function Profile() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:3000/profile", {
+      const response = await fetch(`${baseURL}/profile`, {
         method: "GET",
         headers: {
           token: localStorage.getItem("token"),

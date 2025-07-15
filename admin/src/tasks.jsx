@@ -1,5 +1,7 @@
 import { Card ,Button} from "@mui/material"
 import { useState ,useEffect} from "react"
+const baseURL=import.meta.env.VITE_BASE_URL;
+
 
 function Tasks(){
 
@@ -22,7 +24,7 @@ function Tasks(){
 
      useEffect(()=>{
            async function fetchData (){
-            const response=await fetch("http://localhost:3000/profile",{
+            const response=await fetch(`${baseURL}/profile`,{
               method:"GET",
               headers:{
                  "token":localStorage.getItem("token"),
@@ -52,7 +54,7 @@ function Tasks(){
             if(taskD?.task1===""){
               alert("empty task")
             }else{
-          const response=await fetch("http://localhost:3000/task/upload/dailyTask",{method:"POST",
+          const response=await fetch(`${baseURL}/task/upload/dailyTask`,{method:"POST",
                     headers:{
                         "token":localStorage.getItem("token"),
                         'Content-Type':'application/json'
@@ -93,7 +95,7 @@ function Tasks(){
              if(taskW?.task2===""){
               alert("empty task")
             }else{
-          const response=await fetch("http://localhost:3000/task/upload/weeklyTask",{method:"POST",
+          const response=await fetch(`${baseURL}/task/upload/weeklyTask`,{method:"POST",
                     headers:{
                         "token":localStorage.getItem("token"),
                         'Content-Type':'application/json'
@@ -179,7 +181,7 @@ function Tasks(){
          <Button variant="contained" style={{background:"grey",marginLeft:10,marginTop:5}} onClick={async()=>{
             if(updateDailyTask[0]){
             
-            const response= await fetch("http://localhost:3000/task/updateDaily", {
+            const response= await fetch(`${baseURL}/task/updateDaily`, {
                    method: "PUT",
                    headers: {
                     "token":localStorage.getItem("token"),
@@ -212,7 +214,7 @@ function Tasks(){
          <Button variant="contained" style={{background:"grey",marginLeft:10,marginTop:5}} onClick={async()=>{
             if(updateWeeklyTask[0]){
             
-            const response= await fetch("http://localhost:3000/task/updateWeekly", {
+            const response= await fetch(`${baseURL}/task/updateWeekly`, {
                    method: "PUT",
                    headers: {
                     "token":localStorage.getItem("token"),

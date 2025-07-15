@@ -8,6 +8,8 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+const baseURL=import.meta.env.VITE_BASE_URL;
+
 
 function ViewProjectDetails() {
   const location = useLocation();
@@ -18,7 +20,7 @@ function ViewProjectDetails() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch("http://localhost:3000/project/projectDetails", {
+    fetch(`${baseURL}/project/projectDetails`, {
       method: "GET",
       headers: {
         token: localStorage.getItem("token"),
@@ -119,7 +121,7 @@ function ViewProjectDetails() {
                     return;
                   }
                   const response = await fetch(
-                    `http://localhost:3000/download/${project.file}`,
+                    `${baseURL}/download/${project.file}`,
                     {
                       method: "GET",
                       headers: {
