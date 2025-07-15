@@ -8,8 +8,7 @@ const fs = require('fs');
 require("dotenv").config();
 // const File = require("./models/File");
 
-import { log } from "console"
-import {any, string, z} from "zod"
+import { z} from "zod"
 const app = express()
 const port = 5000
  app.use(cors({
