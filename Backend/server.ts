@@ -11,7 +11,7 @@ require("dotenv").config();
 import { z} from "zod"
 const app = express()
 const port = 5000
- app.use(cors({origin:"https://dan-architects-space.vercel.app/",methods:["GET","POST","PUT","DELETE"],credentials:true}))
+ app.use(cors({origin:"https://dan-architects-space.vercel.app",methods:["GET","POST","PUT","DELETE"],credentials:true}))
 
  app.use(express.json())
  app.use(express.urlencoded({extended:false}))
@@ -301,5 +301,6 @@ const DANArchitects:any=mongoose.connect("mongodb+srv://muzzu2605afzall:99722287
 // const EmployeeData=DANArchitects.db("EmployeeData");
 
 // const employees=EmployeeData.collection("employees")
+
 
 
