@@ -60,7 +60,7 @@ var zod_1 = require("zod");
 var app = express();
 var port = 5000;
 app.use(cors({
-    origin: 'http://ec2-51-20-83-24.eu-north-1.compute.amazonaws.com:3000', credentials: true
+    origin: 'https://dan-architects-space.vercel.app/', credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

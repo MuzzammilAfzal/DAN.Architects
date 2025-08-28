@@ -12,7 +12,7 @@ import { z} from "zod"
 const app = express()
 const port = 5000
  app.use(cors({
-  origin:'*',credentials:true
+  origin:'https://dan-architects-space.vercel.app/',credentials:true
  }))
  app.use(express.json())
  app.use(express.urlencoded({extended:false}))
