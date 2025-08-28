@@ -11,9 +11,8 @@ require("dotenv").config();
 import { z} from "zod"
 const app = express()
 const port = 5000
- app.use(cors({
-  origin:'https://dan-architects-space.vercel.app/',credentials:true
- }))
+ app.use(cors({origin:"https://electronics-e-commerce-pink.vercel.app",methods:["GET","POST","PUT","DELETE"],credentials:true}))
+
  app.use(express.json())
  app.use(express.urlencoded({extended:false}))
  const secertKey="DAN.Architects"
@@ -300,4 +299,5 @@ const projectDetails=new mongoose.model("projectDetails", projectDetailsSchema);
 const DANArchitects:any=mongoose.connect("mongodb+srv://muzzu2605afzall:9972228752.@clusterafzal.mzc6v.mongodb.net/EmployeeData")
 
 // const EmployeeData=DANArchitects.db("EmployeeData");
+
 // const employees=EmployeeData.collection("employees")
