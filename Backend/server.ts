@@ -11,9 +11,8 @@ require("dotenv").config();
 import { z} from "zod"
 const app = express()
 const port = 5000
- app.use(cors())
+ app.use(cors(app.use(cors({origin:"https://dan-architects-1.onrender.com",methods:["GET","POST","PUT","DELETE"],credentials:true}))))
  app.use(express.json())
- app.use(express.urlencoded({extended:false}))
  const secertKey="DAN.Architects"
 
 
