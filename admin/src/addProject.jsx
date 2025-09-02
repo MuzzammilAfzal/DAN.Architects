@@ -215,7 +215,7 @@ function AddProject() {
               });
               const projectData = await projectRes.json();
 
-              navigate("/dashboard");
+              navigate("/dashboard",{replace:true});
             }}
           >
             Add Project

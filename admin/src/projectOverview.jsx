@@ -85,7 +85,7 @@ function ProjectOverview(){
                   if(selectedProject===""){
                     alert("plz select project")
                   }else{
-                  navigate("/viewProjectDetails?"+selectedProject)
+                  navigate("/viewProjectDetails?"+selectedProject,{replace:true})
                   }
                 }}>View & Edit Details</Button>
                 
@@ -114,7 +114,7 @@ function ProjectOverview(){
                   if(selectedProject===""){
                     alert("plz select project")
                   }else{
-                  navigate("/viewProjectDetails?"+selectedProject)
+                  navigate("/viewProjectDetails?"+selectedProject,{replace:true})
                   }
                 }}>Veiw Details</Button>
              </div>

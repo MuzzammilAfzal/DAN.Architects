@@ -48,7 +48,7 @@ return<div  style={{background:"#d3d3d3",height:800,display:'flex',justifyConten
                    alert("Incorrect ID and Password")
                 }else{
                     if(data.value==1){
-                    navigate("/dashboard")
+                    navigate("/dashboard",{replace:true})
                     localStorage.setItem("token",data.token)
                     localStorage.setItem("id",User.id)
 

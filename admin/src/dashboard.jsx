@@ -2,7 +2,7 @@
 import { Card } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { useEffect, useState } from 'react';
-import {Navigate, useNavigate} from 'react-router-dom'
+import {Navigate, replace, useNavigate} from 'react-router-dom'
 import React from 'react';
 import ProjectOverview from './projectOverview';
 import Tasks from './tasks';
@@ -23,7 +23,7 @@ function DashBoard(){
           <br></br>
            <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
            onClick={()=>{
-            navigate("/announcements")
+            navigate("/announcements",{replace:true})
            }}>Add New Announcements</Card>   
          </div>
       }
@@ -52,21 +52,21 @@ function DashBoard(){
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
               onClick={()=>{
-                navigate("/profile")
+                navigate("/profile",{replace:true})
               }}
              >Profile</Card>
              <RenderButton></RenderButton>
              <br />
                <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
                 onClick={()=>{
-                 navigate("/addProject")
+                 navigate("/addProject",{replace:true})
                }}>Add New Project</Card>
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}} onClick={()=>{
                  localStorage.removeItem("token")
                  localStorage.removeItem("id")
                  localStorage.removeItem("controller")
-                navigate("/admin")
+                navigate("/admin",{replace:true})
              }}  >LogOut</Card >
            </Paper>
         </div>
