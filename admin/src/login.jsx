@@ -16,7 +16,8 @@ function Login(){
 return<div  style={{background:"#d3d3d3",height:800,display:'flex',justifyContent:'center',flexWrap:"wrap"}}>
    <center style={{padding:200}}>
         <Card variant="outlined" style={{width:300,padding:50}}>
-            <h1>DAN. Architects</h1> 
+            <h1>Architecture Firm</h1> 
+            <h5><u>For Visitors</u> <br />id: system <br /> password: manager</h5>
              <TextField id="outlined-basic" placeholder='No spaces allowed' label="Employee ID" variant="outlined" 
              onChange={(event)=>{
                 User.id=event.target.value
