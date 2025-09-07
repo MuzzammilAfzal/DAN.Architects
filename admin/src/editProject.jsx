@@ -285,7 +285,7 @@ function EditProject() {
                 body: JSON.stringify(Project),
               });
 
-              navigate("/viewProjectDetails?" + Project.projectName, { replace: true });
+              navigate("/viewProjectDetails?" + Project.projectName);
             }}
           >
             Save Changes

@@ -39,7 +39,7 @@ function ViewProjectDetails() {
         <Button
           variant="contained"
           sx={{ backgroundColor: "grey", mt: 2 }}
-          onClick={() => navigate("/editProject", { state: { project } },{replace:true})}
+          onClick={() => navigate("/editProject", { state: { project } })}
         >
           Edit
         </Button>

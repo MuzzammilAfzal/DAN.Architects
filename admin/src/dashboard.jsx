@@ -23,7 +23,7 @@ function DashBoard(){
           <br></br>
            <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
            onClick={()=>{
-            navigate("/announcements",{replace:true})
+            navigate("/announcements")
            }}>Add New Announcements</Card>   
          </div>
       }
@@ -52,14 +52,14 @@ function DashBoard(){
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
               onClick={()=>{
-                navigate("/profile",{replace:true})
+                navigate("/profile")
               }}
              >Profile</Card>
              <RenderButton></RenderButton>
              <br />
                <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
                 onClick={()=>{
-                 navigate("/addProject",{replace:true})
+                 navigate("/addProject")
                }}>Add New Project</Card>
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}} onClick={()=>{

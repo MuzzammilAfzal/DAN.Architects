@@ -38,7 +38,7 @@ function Announcements() {
       });
 
       if (response.ok) {
-        navigate("/dashboard",{replace:true});
+        navigate("/dashboard");
       } else {
         alert("Failed to publish announcement.");
       }
