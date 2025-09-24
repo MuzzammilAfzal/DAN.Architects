@@ -59,7 +59,7 @@ require("dotenv").config();
 var zod_1 = require("zod");
 var app = express();
 var port = 5000;
-app.use(cors({ origin: "https://dan-architects-space.vercel.app", methods: ["GET", "POST", "PUT", "DELETE"], allowedHeaders: ["Content-Type", "token", "id"] }));
+app.use(cors({ origin: "*", methods: ["GET", "POST", "PUT", "DELETE"], allowedHeaders: ["Content-Type", "token", "id"] }));
 app.options("*", cors());
 app.use(express.json());
 var secertKey = "DAN.Architects";

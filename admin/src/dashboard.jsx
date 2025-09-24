@@ -25,6 +25,11 @@ function DashBoard(){
            onClick={()=>{
             navigate("/announcements")
            }}>Add New Announcements</Card>   
+           <br />
+               <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
+                onClick={()=>{
+                 navigate("/addProject")
+               }}>Add New Project</Card>
          </div>
       }
     }
@@ -45,7 +50,7 @@ function DashBoard(){
 
 
     return<>
-    <div style={{display:'flex',background:"#d3d3d3",transform: 'scale(0.8)', transformOrigin: 'top left', width: '125%'}}>
+    <div style={{display:'flex',background:"#d3d3d3", width: '125%'}}>
         <div>
            <Paper elevation={24} style={{width:300,padding:20,position:"fixed"}}>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}>DashBoard</Card>
@@ -56,11 +61,7 @@ function DashBoard(){
               }}
              >Profile</Card>
              <RenderButton></RenderButton>
-             <br />
-               <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}}
-                onClick={()=>{
-                 navigate("/addProject")
-               }}>Add New Project</Card>
+             
              <br></br>
              <Card elevation={6} style={{padding:10,textAlign:'center',fontWeight:'bold'}} onClick={()=>{
                  localStorage.removeItem("token")
@@ -77,8 +78,8 @@ function DashBoard(){
               <h5 style={{textAlign:'center'}}>(note:only controller can make announcement)</h5>
                <div>
                 {
-                    announcement.map(value=>{
-                    return <Card elevation={6} style={{height:"auto",minWidth:865,padding:10,margin:20,overflowWrap:"break-word"}}>
+                    announcement.map((value,index)=>{
+                    return <Card key={index} elevation={6} style={{height:"auto",minWidth:865,padding:10,margin:20,overflowWrap:"break-word"}}>
                     From :  {value.id} <br/>
                     <p style={{fontWeight:"bold",fontSize:"large"}}>
                     {value.announcement}
@@ -99,10 +100,7 @@ function DashBoard(){
              <h3 style={{textAlign:'center',marginBottom:0}}>Project Overview</h3>
              <ProjectOverview></ProjectOverview>
            </div>
-           <div >
-             
-             <Card elevation={24} style={{height:400,width:1000}}><h3 style={{textAlign:'center'}}>below part is under development</h3></Card>
-           </div>
+
        </div>
     </div>
 

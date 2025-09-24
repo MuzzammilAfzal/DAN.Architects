@@ -133,8 +133,8 @@ function Tasks(){
 
 
     const renderTaskD=()=>{
-       return <div> {data?.dailyTask?.map(e=>{
-            return <Card  elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,}}>
+       return <div> {data?.dailyTask?.map((e,index)=>{
+            return <Card key={index} elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,}}>
         <input type="checkbox"  value={e} onChange={handleCheckD}></input>
         <label > {e} </label>
         </Card>
@@ -159,8 +159,8 @@ function Tasks(){
 
 
     const renderTaskW=()=>{
-       return <div> {data?.weeklyTask?.map(e=>{
-            return <Card  elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,}}>
+       return <div> {data?.weeklyTask?.map((e,index)=>{
+            return <Card key={index}  elevation={7} style={{padding:20,fontWeight:"bolder",margin:10,}}>
         <input type="checkbox"  value={e} onChange={handleCheckW}></input>
         <label > {e} </label>
         </Card>

@@ -54,7 +54,7 @@ function ViewProjectDetails(){
 
 
      function RenderEditButton(){
-      if(project.completedPercentage!=="100%"){
+      if(project.completedPercentage!=="100%" && localStorage.getItem("controller")==="yes"){
           return  <Button variant="contained" style={{background:"grey"}} onClick={async()=>{
           navigate("/editProject",{state:{"project":project}})
           }}>Edit</Button> 
@@ -86,7 +86,7 @@ function ViewProjectDetails(){
                           if(project.file===""){
                              alert("their is no file for this project")
                           }else{
-                          fetch(`http://localhost:3000/download/${project.file}`,{method:"GET",
+                          fetch(`${baseURL}/download/${project.file}`,{method:"GET",
                              headers:{
                              "token":localStorage.getItem("token")
                             }

@@ -74,9 +74,9 @@ function ProjectOverview(){
                setSelectedProject(document.getElementById("selectProject1").value)
                }}>
                <option value=""disabled selected hidden>select project</option>
-               {projectDetails.map(e=>{
+               {projectDetails.map((e,index)=>{
                    if(e.completedPercentage!="100%"){
-                     return <option value={e.projectName}> {e.projectName}  </option>
+                     return <option key={index} value={e.projectName}> {e.projectName}  </option>
                    }
                  })}{projectDisplay()}{renderProjectOngoingNonAvailable()}
               </select>
@@ -99,9 +99,9 @@ function ProjectOverview(){
                setSelectedProject(document.getElementById("selectProject2").value)}}>
                    <option value=""disabled selected hidden>select project</option>
               
-                 {projectDetails.map(e=>{
+                 {projectDetails.map((e,index)=>{
                    if(e.completedPercentage=="100%"){
-                     return <option value={e.projectName}> {e.projectName}  </option>
+                     return <option key={index} value={e.projectName}> {e.projectName}  </option>
                    }
                  })}{projectDisplay()}{renderProjectCompletedNonAvailable()}
                    
